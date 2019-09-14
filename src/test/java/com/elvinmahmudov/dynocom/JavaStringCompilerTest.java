@@ -1,7 +1,6 @@
 package com.elvinmahmudov.dynocom;
 
-import com.elvinmahmudov.dynocom.model.BeanProxy;
-import com.elvinmahmudov.dynocom.model.User;
+import com.elvinmahmudov.dynocom.model.Teacher;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,38 +8,24 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class JavaStringCompilerTest {
 
-    static final String SINGLE_CLASS = "/* a single java class to one file */  "
-            + "package com.elvinmahmudov.dynocom.model;                                            "
-            + "import com.elvinmahmudov.dynocom.*;                            "
-            + "public class UserProxy extends User implements BeanProxy {     "
-            + "    boolean _dirty = false;                                    "
-            + "    public void setId(String id) {                             "
-            + "        super.setId(id);                                       "
-            + "        setDirty(true);                                        "
-            + "    }                                                          "
-            + "    public void setName(String name) {                         "
-            + "        super.setName(name);                                   "
-            + "        setDirty(true);                                        "
-            + "    }                                                          "
-            + "    public void setCreated(long created) {                     "
-            + "        super.setCreated(created);                             "
-            + "        setDirty(true);                                        "
-            + "    }                                                          "
-            + "    public void setDirty(boolean dirty) {                      "
-            + "        this._dirty = dirty;                                   "
-            + "    }                                                          "
-            + "    public boolean isDirty() {                                 "
-            + "        return this._dirty;                                    "
-            + "    }                                                          "
+    static final String SINGLE_CLASS = "/* source file */   "
+            + "package com.elvinmahmudov.dynocom.model;                       "
+            + "                                                               "
+            + "import com.elvinmahmudov.dynocom.model.*;                      "
+            + "import lombok.Data;                                            "
+            + "                                                               "
+            + "@Data                                                          "
+            + "public class MathTeacher extends Teacher {                     "
+            + "    String mainSubject = \"Math\";                             "
             + "}                                                              ";
-    static final String MULTIPLE_CLASSES = "/* a single class to many files */   "
-            + "package com.elvinmahmudov.dynocom.model;                                            "
+
+    static final String MULTIPLE_CLASSES = "/* a single class to many files */"
+            + "package com.elvinmahmudov.dynocom.model;                       "
             + "import com.elvinmahmudov.dynocom.*;                            "
             + "import java.util.*;                                            "
             + "public class Multiple {                                        "
@@ -75,29 +60,25 @@ public class JavaStringCompilerTest {
 
     @Test
     public void testCompileSingleClass() throws Exception {
-        Map<String, byte[]> results = compiler.compile("UserProxy.java", SINGLE_CLASS);
+        Map<String, byte[]> results = compiler.compile("MathTeacher.java", SINGLE_CLASS);
         assertEquals(1, results.size());
-        assertTrue(results.containsKey("com.elvinmahmudov.dynocom.model.UserProxy"));
-        Class<?> clazz = compiler.loadClass("com.elvinmahmudov.dynocom.model.UserProxy", results);
+        assertTrue(results.containsKey("com.elvinmahmudov.dynocom.model.MathTeacher"));
+        Class<?> clazz = compiler.loadClass("com.elvinmahmudov.dynocom.model.MathTeacher", results);
         // get method:
         Method setId = clazz.getMethod("setId", String.class);
-        Method setName = clazz.getMethod("setName", String.class);
-        Method setCreated = clazz.getMethod("setCreated", long.class);
+        Method setDesignation = clazz.getMethod("setDesignation", String.class);
+        Method setCollegeName = clazz.getMethod("setCollegeName", String.class);
         // try instance:
         Object obj = clazz.getDeclaredConstructor().newInstance();
-        // get as proxy:
-        BeanProxy proxy = (BeanProxy) obj;
-        assertFalse(proxy.isDirty());
         // set:
-        setId.invoke(obj, "A-123");
-        setName.invoke(obj, "Fly");
-        setCreated.invoke(obj, 123000999);
-        // get as user:
-        User user = (User) obj;
-        assertEquals("A-123", user.getId());
-        assertEquals("Fly", user.getName());
-        assertEquals(123000999, user.getCreated());
-        assertTrue(proxy.isDirty());
+        setId.invoke(obj, "1");
+        setDesignation.invoke(obj, "Teacher");
+        setCollegeName.invoke(obj, "ADNSU");
+        // get as customer:
+        Teacher customer = (Teacher) obj;
+        assertEquals("1", customer.getId());
+        assertEquals("Teacher", customer.getDesignation());
+        assertEquals("ADNSU", customer.getCollegeName());
     }
 
     @Test
