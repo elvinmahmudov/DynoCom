@@ -13,13 +13,15 @@ import static org.junit.Assert.assertTrue;
 
 public class JavaStringCompilerTest {
 
-    static final String SINGLE_CLASS = "/* source file */   "
+    static final String SINGLE_CLASS = "/* source file */                     "
             + "package com.elvinmahmudov.dynocom.model;                       "
             + "                                                               "
             + "import com.elvinmahmudov.dynocom.model.*;                      "
             + "import lombok.Data;                                            "
+            + "import lombok.EqualsAndHashCode;                               "
             + "                                                               "
             + "@Data                                                          "
+            + "@EqualsAndHashCode(callSuper=false)                            "
             + "public class MathTeacher extends Teacher {                     "
             + "    String mainSubject = \"Math\";                             "
             + "}                                                              ";
