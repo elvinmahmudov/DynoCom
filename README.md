@@ -2,6 +2,12 @@
 
 <img src="https://github.com/elvinmahmudov/DynoCom/blob/master/logo.png" width="200"> 
 
+
+<br/>
+
+[![Build Status](https://travis-ci.org/elvinmahmudov/DynoCom.svg?branch=master)](https://travis-ci.org/elvinmahmudov/DynoCom)
+
+
 ### Getting Started
 The aim of this project is to help developers compile source Java classes in memory on the fly.
 
