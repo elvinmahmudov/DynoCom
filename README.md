@@ -12,7 +12,15 @@
 The aim of this project is to help developers compile source Java classes in memory on the fly.
 
 ### Installing
-Step 1: Compile and add resulted jar file to your external libraries.
+Step 1: Add to maven dependencies
+
+```
+        <dependency>
+            <groupId>com.github.elvinmahmudov</groupId>
+            <artifactId>dynocom</artifactId>
+            <version>1.0</version>
+        </dependency>
+```
 
 Step 2: compile string and load class:
 
