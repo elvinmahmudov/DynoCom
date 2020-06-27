@@ -18,7 +18,7 @@ Step 1: Add to maven dependencies
         <dependency>
             <groupId>com.github.elvinmahmudov</groupId>
             <artifactId>dynocom</artifactId>
-            <version>1.0</version>
+            <version>1.2.3</version>
         </dependency>
 ```
 
