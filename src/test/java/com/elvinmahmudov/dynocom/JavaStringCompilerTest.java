@@ -66,21 +66,21 @@ public class JavaStringCompilerTest {
         assertEquals(1, results.size());
         assertTrue(results.containsKey("com.elvinmahmudov.dynocom.model.MathTeacher"));
         Class<?> clazz = compiler.loadClass("com.elvinmahmudov.dynocom.model.MathTeacher", results);
-        // get method:
+
         Method setId = clazz.getMethod("setId", String.class);
         Method setDesignation = clazz.getMethod("setDesignation", String.class);
         Method setCollegeName = clazz.getMethod("setCollegeName", String.class);
-        // try instance:
+
         Object obj = clazz.getDeclaredConstructor().newInstance();
-        // set:
+
         setId.invoke(obj, "1");
         setDesignation.invoke(obj, "Teacher");
         setCollegeName.invoke(obj, "ADNSU");
-        // get as customer:
-        Teacher customer = (Teacher) obj;
-        assertEquals("1", customer.getId());
-        assertEquals("Teacher", customer.getDesignation());
-        assertEquals("ADNSU", customer.getCollegeName());
+
+        Teacher teacher = (Teacher) obj;
+        assertEquals("1", teacher.getId());
+        assertEquals("Teacher", teacher.getDesignation());
+        assertEquals("ADNSU", teacher.getCollegeName());
     }
 
     @Test
@@ -92,7 +92,7 @@ public class JavaStringCompilerTest {
         assertTrue(results.containsKey("com.elvinmahmudov.dynocom.model.Multiple$NestedBird"));
         assertTrue(results.containsKey("com.elvinmahmudov.dynocom.model.Bird"));
         Class<?> clzMul = compiler.loadClass("com.elvinmahmudov.dynocom.model.Multiple", results);
-        // try instance:
+
         Object obj = clzMul.getDeclaredConstructor().newInstance();
         assertNotNull(obj);
     }

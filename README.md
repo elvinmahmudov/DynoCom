@@ -31,10 +31,10 @@ public class Main {
 
     public static void main(String[] args) {
         var compiler = new JavaStringCompiler();
-        var results = compiler.compile("Customer.java", SINGLE_CLASS);
+        var results = compiler.compile("Teacher.java", SINGLE_CLASS);
         var clazz = compiler.loadClass(MODEL_NAME, results);
         
-        var customer = (Teacher) clazz.newInstance();
+        var teacher = (Teacher) clazz.newInstance();
     }
 
     static final String SINGLE_CLASS = "                                      "
